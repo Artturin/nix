@@ -2391,6 +2391,8 @@ void EvalState::printStats()
         topObj["nrLookups"] = nrLookups;
         topObj["nrPrimOpCalls"] = nrPrimOpCalls;
         topObj["nrFunctionCalls"] = nrFunctionCalls;
+        topObj["nrMemoiseHits"] = nrMemoiseHits;
+        topObj["nrMemoiseMisses"] = nrMemoiseMisses;
 #if HAVE_BOEHMGC
         topObj["gc"] = {
             {"heapSize", heapSize},
