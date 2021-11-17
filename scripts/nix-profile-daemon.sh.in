@@ -2,7 +2,16 @@
 if [ -n "${__ETC_PROFILE_NIX_SOURCED:-}" ]; then return; fi
 __ETC_PROFILE_NIX_SOURCED=1
 
-export NIX_PROFILES="@localstatedir@/nix/profiles/default $HOME/.nix-profile"
+NIX_LINK=$HOME/.nix-profile
+if ! [ -e $NIX_LINK ]; then
+    if [ -n "$XDG_DATA_HOME" ]; then
+        NIX_LINK="$XDG_DATA_HOME/nix/profile"
+    else
+        NIX_LINK=$HOME/.local/share/nix/profile
+    fi
+fi
+
+export NIX_PROFILES="@localstatedir@/nix/profiles/default $NIX_LINK"
 
 # Set $NIX_SSL_CERT_FILE so that Nixpkgs applications like curl work.
 if [ -n "${NIX_SSL_CERT_FILE:-}" ]; then
@@ -34,4 +43,4 @@ else
   unset -f check_nix_profiles
 fi
 
-export PATH="$HOME/.nix-profile/bin:@localstatedir@/nix/profiles/default/bin:$PATH"
+export PATH="$NIX_LINK/bin:@localstatedir@/nix/profiles/default/bin:$PATH"

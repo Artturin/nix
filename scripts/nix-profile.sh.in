@@ -4,10 +4,17 @@ if [ -n "$HOME" ] && [ -n "$USER" ]; then
     # This part should be kept in sync with nixpkgs:nixos/modules/programs/shell.nix
 
     NIX_LINK=$HOME/.nix-profile
+    if ! [ -e $NIX_LINK ]; then
+        if [ -n "$XDG_DATA_HOME" ]; then
+            NIX_LINK="$XDG_DATA_HOME/nix/profile"
+        else
+            NIX_LINK=$HOME/.local/share/nix/profile
+        fi
+    fi
 
     # Set up environment.
     # This part should be kept in sync with nixpkgs:nixos/modules/programs/environment.nix
-    export NIX_PROFILES="@localstatedir@/nix/profiles/default $HOME/.nix-profile"
+    export NIX_PROFILES="@localstatedir@/nix/profiles/default $NIX_LINK"
 
     # Set $NIX_SSL_CERT_FILE so that Nixpkgs applications like curl work.
     if [ -e /etc/ssl/certs/ca-certificates.crt ]; then # NixOS, Ubuntu, Debian, Gentoo, Arch

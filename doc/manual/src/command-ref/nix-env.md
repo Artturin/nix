@@ -140,11 +140,13 @@ have an effect.
     The command `nix-channel` places symlinks to the downloaded Nix
     expressions from each subscribed channel in this directory.
 
-  - `~/.nix-profile`\
+  - `$XDG_DATA_HOME/nix/profile`\
     A symbolic link to the user's current profile. By default, this
     symlink points to `prefix/var/nix/profiles/default`. The `PATH`
-    environment variable should include `~/.nix-profile/bin` for the
-    user environment to be visible to the user.
+    environment variable should include `$XDG_DATA_HOME/nix/bin` for
+    the user environment to be visible to the user (the `nix.sh`
+    script handles this). *Note: if a legacy path `~/.nix-profile`
+    exists, it is used instead.*
 
 # Operation `--install`
 
@@ -769,7 +771,8 @@ $ nix-env -f https://github.com/NixOS/nixpkgs/archive/master.tar.gz -qa
 ## Description
 
 This operation makes *path* the current profile for the user. That is,
-the symlink `~/.nix-profile` is made to point to *path*.
+the symlink `$XDG_DATA_HOME/nix/profile` (or `~/.nix-profile`, if it
+already exists) is made to point to *path*.
 
 ## Examples
 
@@ -886,7 +889,7 @@ error: no generation older than the current (91) exists
 
 # Environment variables
 
-  - `NIX_PROFILE`\
+  - `NIX_PROFILE`\ 
     Location of the Nix profile. Defaults to the target of the symlink
-    `~/.nix-profile`, if it exists, or `/nix/var/nix/profiles/default`
-    otherwise.
+    `~/.nix-profile`, if it exists, or `$XDG_DATA_HOME/nix/profile`,
+    if it exists, or `/nix/var/nix/profiles/default` otherwise.

@@ -102,13 +102,15 @@ also see all available generations:
 $ nix-env --list-generations
 ```
 
-You generally wouldn’t have `/nix/var/nix/profiles/some-profile/bin` in
-your `PATH`. Rather, there is a symlink `~/.nix-profile` that points to
-your current profile. This means that you should put
-`~/.nix-profile/bin` in your `PATH` (and indeed, that’s what the
-initialisation script `/nix/etc/profile.d/nix.sh` does). This makes it
-easier to switch to a different profile. You can do that using the
-command `nix-env --switch-profile`:
+You generally wouldn’t have `/nix/var/nix/profiles/some-profile/bin`
+in your `PATH`. Rather, there is a symlink
+`$XDG_DATA_HOME/nix/profile` (or legacy `~/.nix-profile`, which is
+preferred when it exists) that points to your current profile. This
+means that you should put `$XDG_DATA_HOME/nix/profile/bin` in your
+`PATH` (and indeed, that’s what the initialisation script
+`/nix/etc/profile.d/nix.sh` does). This makes it easier to switch to a
+different profile. You can do that using the command `nix-env
+--switch-profile`:
 
 ```console
 $ nix-env --switch-profile /nix/var/nix/profiles/my-profile
@@ -123,11 +125,13 @@ location than the `profiles` directory, since otherwise it might not be
 used as a root of the [garbage collector](garbage-collection.md).
 
 All `nix-env` operations work on the profile pointed to by
-`~/.nix-profile`, but you can override this using the `--profile` option
+`$XDG_DATA_HOME/nix/profile` (or legacy `~/.nix-profile` if it
+exists), but you can override this using the `--profile` option
 (abbreviation `-p`):
 
 ```console
 $ nix-env -p /nix/var/nix/profiles/other-profile -iA nixpkgs.subversion
 ```
 
-This will *not* change the `~/.nix-profile` symlink.
+This will *not* create or change the `$XDG_DATA_HOME/nix/profile` (or
+`~/.nix-profile`) symlink.

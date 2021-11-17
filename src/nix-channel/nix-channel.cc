@@ -163,7 +163,15 @@ static int main_nix_channel(int argc, char ** argv)
         // Figure out the name of the `.nix-channels' file to use
         auto home = getHome();
         channelsList = home + "/.nix-channels";
+        if (!pathExists(channelsList)) {
+            createDirs(getDataDir() + "/nix");
+            channelsList = getDataDir() + "/nix/channels";
+        }
         nixDefExpr = home + "/.nix-defexpr";
+        if (!pathExists(nixDefExpr)) {
+            createDirs(getDataDir() + "/nix");
+            nixDefExpr = getDataDir() + "/nix/defexpr";
+        }
 
         // Figure out the name of the channels profile.
         profile = fmt("%s/profiles/per-user/%s/channels", settings.nixStateDir, getUserName());

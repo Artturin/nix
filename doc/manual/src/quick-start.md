@@ -41,7 +41,7 @@ to subsequent chapters.
 
    ```console
    $ which hello
-   /home/eelco/.nix-profile/bin/hello
+   /home/eelco/.local/share/nix/profile/bin/hello
    $ hello
    Hello, world!
    ```

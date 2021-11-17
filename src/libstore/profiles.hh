@@ -68,8 +68,9 @@ void lockProfile(PathLocks & lock, const Path & profile);
    rebuilt. */
 std::string optimisticLockProfile(const Path & profile);
 
-/* Resolve ~/.nix-profile. If ~/.nix-profile doesn't exist yet, create
-   it. */
+/* Resolve the default profile. If ~/.nix-profile exists, use it,
+   otherwise use $XDG_CONFIG_HOME/nix/profile (and create if doesn't
+   exist) */
 Path getDefaultProfile();
 
 }

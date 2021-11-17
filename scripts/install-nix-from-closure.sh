@@ -182,6 +182,15 @@ fi
 # shellcheck source=./nix-profile.sh.in
 . "$nix/etc/profile.d/nix.sh"
 
+NIX_LINK=$HOME/.nix-profile
+if ! [ -e $NIX_LINK ]; then
+    if [ -n "$XDG_DATA_HOME" ]; then
+        NIX_LINK="$XDG_DATA_HOME/nix/profile"
+    else
+        NIX_LINK=$HOME/.local/share/nix/profile
+    fi
+fi
+
 if ! "$nix/bin/nix-env" -i "$nix"; then
     echo "$0: unable to install Nix into your default profile" >&2
     exit 1
@@ -190,7 +199,7 @@ fi
 # Install an SSL certificate bundle.
 if [ -z "$NIX_SSL_CERT_FILE" ] || ! [ -f "$NIX_SSL_CERT_FILE" ]; then
     "$nix/bin/nix-env" -i "$cacert"
-    export NIX_SSL_CERT_FILE="$HOME/.nix-profile/etc/ssl/certs/ca-bundle.crt"
+    export NIX_SSL_CERT_FILE="$NIX_LINK/etc/ssl/certs/ca-bundle.crt"
 fi
 
 # Subscribe the user to the Nixpkgs channel and fetch it.
@@ -207,7 +216,7 @@ if [ -z "$NIX_INSTALLER_NO_CHANNEL_ADD" ]; then
 fi
 
 added=
-p=$HOME/.nix-profile/etc/profile.d/nix.sh
+p=$NIX_LINK/etc/profile.d/nix.sh
 if [ -z "$NIX_INSTALLER_NO_MODIFY_PROFILE" ]; then
     # Make the shell source nix.sh during login.
     for i in .bash_profile .bash_login .profile; do

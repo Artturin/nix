@@ -465,7 +465,7 @@ Make a picture of the runtime dependency graph of the current user
 environment:
 
 ```console
-$ nix-store -q --graph ~/.nix-profile | dot -Tps > graph.ps
+$ nix-store -q --graph $XDG_DATA_HOME/nix/profile | dot -Tps > graph.ps
 $ gv graph.ps
 ```
 
