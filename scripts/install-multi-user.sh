@@ -102,7 +102,7 @@ EOF
     cat <<EOF
 $step. Delete the files Nix added to your system:
 
-  sudo rm -rf /etc/nix $NIX_ROOT $ROOT_HOME/.nix-profile $ROOT_HOME/.nix-defexpr $ROOT_HOME/.nix-channels $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels $HOME/.local/share/nix $HOME/.cache/nix
+  sudo rm -rf /etc/nix $NIX_ROOT $ROOT_HOME/.nix-profile $ROOT_HOME/.nix-defexpr $ROOT_HOME/.nix-channels $ROOT_HOME/.local/share/nix $ROOT_HOME/.cache/nix $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels $HOME/.local/share/nix $HOME/.cache/nix
 
 and that is it.
 
