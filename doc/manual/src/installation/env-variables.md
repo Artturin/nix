@@ -63,3 +63,17 @@ If any of these variables are set when running the Nix installer, then
 the installer will create an override file at
 `/etc/systemd/system/nix-daemon.service.d/override.conf` so `nix-daemon`
 will use them.
+
+## XDG Base Directory
+
+Nix conforms to the [XDG Base
+Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+standard, and uses the following environment variables to determine
+locations of various state and configuration files:
+
+- `$XDG_DATA_HOME` (assumed to be `~/.local/share` if not set): used
+  for storing state, such as the current user environment and
+  channels, repl history, and allowed flake settings.
+- `$XDG_CACHE_HOME` (assumed to be `~/.cache` if not set): used for
+  storing cache, such as flake evaluation cache and eval-time fetcher
+  results.
