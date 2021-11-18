@@ -182,12 +182,12 @@ fi
 # shellcheck source=./nix-profile.sh.in
 . "$nix/etc/profile.d/nix.sh"
 
-NIX_LINK=$HOME/.nix-profile
-if ! [ -e $NIX_LINK ]; then
+NIX_LINK="$HOME/.nix-profile"
+if ! [ -e "$NIX_LINK" ]; then
     if [ -n "$XDG_DATA_HOME" ]; then
         NIX_LINK="$XDG_DATA_HOME/nix/profile"
     else
-        NIX_LINK=$HOME/.local/share/nix/profile
+        NIX_LINK="$HOME/.local/share/nix/profile"
     fi
 fi
 
