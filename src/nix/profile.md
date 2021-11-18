@@ -10,7 +10,8 @@ them to be rolled back easily.
 # Default profile
 
 The default profile used by `nix profile` is
-`$XDG_DATA_HOME/nix/profile`, which, if it does not exist, is created
+`$XDG_DATA_HOME/nix/profile` (or `~/.local/share/nix/profile` if
+`XDG_DATA_HOME` is not set), which, if it does not exist, is created
 as a symlink to `/nix/var/nix/profiles/per-user/default` if Nix is
 invoked by the `root` user, or
 `/nix/var/nix/profiles/per-user/`*username* otherwise. *Note: when
