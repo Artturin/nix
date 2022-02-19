@@ -1,5 +1,6 @@
 #include "globals.hh"
 #include "installables.hh"
+#include "util.hh"
 #include "command.hh"
 #include "attr-path.hh"
 #include "common-eval-args.hh"
@@ -271,8 +272,7 @@ void completeFlakeRefWithFragment(
 
             auto fragment = prefix.substr(hash + 1);
             auto flakeRefS = std::string(prefix.substr(0, hash));
-            // FIXME: do tilde expansion.
-            auto flakeRef = parseFlakeRef(flakeRefS, absPath("."));
+            auto flakeRef = parseFlakeRef(expandTilde(flakeRefS), absPath("."));
 
             auto evalCache = openEvalCache(*evalState,
                 std::make_shared<flake::LockedFlake>(lockFlake(*evalState, flakeRef, lockFlags)));
