@@ -164,13 +164,13 @@ static int main_nix_channel(int argc, char ** argv)
         auto home = getHome();
         channelsList = home + "/.nix-channels";
         if (!pathExists(channelsList)) {
-            createDirs(getDataDir() + "/nix");
-            channelsList = getDataDir() + "/nix/channels";
+            createDirs(getStateDir() + "/nix");
+            channelsList = getStateDir() + "/nix/channels";
         }
         nixDefExpr = home + "/.nix-defexpr";
         if (!pathExists(nixDefExpr)) {
-            createDirs(getDataDir() + "/nix");
-            nixDefExpr = getDataDir() + "/nix/defexpr";
+            createDirs(getStateDir() + "/nix");
+            nixDefExpr = getStateDir() + "/nix/defexpr";
         }
 
         // Figure out the name of the channels profile.

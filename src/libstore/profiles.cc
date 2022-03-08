@@ -283,11 +283,11 @@ std::string optimisticLockProfile(const Path & profile)
 Path getDefaultProfile()
 {
     Path profileLink = getHome() + "/.nix-profile";
-    Path newProfileLink = getDataDir() + "/nix/profile";
+    Path newProfileLink = getStateDir() + "/nix/profile";
     try {
         if (!pathExists(profileLink)) {
             if (!pathExists(newProfileLink)) {
-                createDirs(getDataDir() + "/nix");
+                createDirs(getStateDir() + "/nix");
                 replaceSymlink(
                     getuid() == 0
                     ? settings.nixStateDir + "/profiles/default"

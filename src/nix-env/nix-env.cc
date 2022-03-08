@@ -1265,7 +1265,7 @@ static void opSwitchProfile(Globals & globals, Strings opFlags, Strings opArgs)
 
     Path profile = absPath(opArgs.front());
     Path profileLink = getHome() + "/.nix-profile";
-    if (!pathExists(profileLink)) profileLink = getDataDir() + "/nix/profile";
+    if (!pathExists(profileLink)) profileLink = getStateDir() + "/nix/profile";
 
     switchLink(profileLink, profile);
 }
@@ -1370,7 +1370,7 @@ static int main_nix_env(int argc, char * * argv)
 
         globals.instSource.type = srcUnknown;
         Path nixExprPath = getHome() + "/.nix-defexpr";
-        if (!pathExists(nixExprPath)) nixExprPath = getDataDir() + "/nix/defexpr";
+        if (!pathExists(nixExprPath)) nixExprPath = getStateDir() + "/nix/defexpr";
         globals.instSource.nixExprPath = nixExprPath;
         globals.instSource.systemFilter = "*";
 
