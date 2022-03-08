@@ -579,6 +579,12 @@ Path getDataDir()
     return dataDir ? *dataDir : getHome() + "/.local/share";
 }
 
+Path getStateDir()
+{
+    auto stateDir = getEnv("XDG_STATE_HOME");
+    return stateDir ? *stateDir : getHome() + "/.local/state";
+}
+
 
 Paths createDirs(const Path & path)
 {
