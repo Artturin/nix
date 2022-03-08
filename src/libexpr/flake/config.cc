@@ -58,7 +58,7 @@ void ConfigFile::apply()
                 trusted = true;
             } else if (auto saved = get(get(trustedList, name).value_or(std::map<std::string, bool>()), valueS)) {
                 trusted = *saved;
-                warn("Using saved setting for '%s = %s' from ~/.local/share/nix/trusted-settings.json.", name,valueS);
+                warn("Using saved setting for '%s = %s' from ~/.local/state/nix/trusted-settings.json.", name,valueS);
             } else {
                 // FIXME: filter ANSI escapes, newlines, \r, etc.
                 if (std::tolower(logger->ask(fmt("do you want to allow configuration setting '%s' to be set to '" ANSI_RED "%s" ANSI_NORMAL "' (y/N)?", name, valueS)).value_or('n')) == 'y') {

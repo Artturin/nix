@@ -87,7 +87,7 @@ extension. The installer will also create `/etc/profile.d/nix.sh`.
 You can uninstall Nix with the following commands:
 
 ```console
-sudo rm -rf /etc/profile/nix.sh /etc/nix /nix ~root/.nix-profile ~root/.nix-defexpr ~root/.nix-channels ~root/.local/share/nix ~root/.cache/nix ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.local/share/nix ~/.cache/nix
+sudo rm -rf /etc/profile/nix.sh /etc/nix /nix ~root/.nix-profile ~root/.nix-defexpr ~root/.nix-channels ~root/.local/state/nix ~root/.cache/nix ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.local/state/nix ~/.cache/nix
 
 # If you are on Linux with systemd, you will need to run:
 sudo systemctl stop nix-daemon.socket

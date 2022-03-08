@@ -2,9 +2,9 @@
 
 To use Nix, some environment variables should be set. In particular,
 `PATH` should contain the directories `prefix/bin` and
-`$XDG_DATA_HOME/nix/profile/bin` (or `~/.nix-profile/bin` if
+`$XDG_STATE_HOME/nix/profile/bin` (or `~/.nix-profile/bin` if
 `~/.nix-profile` exists). The first directory contains the Nix tools
-themselves, while `$XDG_DATA_HOME/nix/profile` is a symbolic link to
+themselves, while `$XDG_STATE_HOME/nix/profile` is a symbolic link to
 the current *user environment* (an automatically generated package
 consisting of symlinks to installed packages). The simplest way to set
 the required environment variables is to include the file
@@ -71,7 +71,7 @@ Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-late
 standard, and uses the following environment variables to determine
 locations of various state and configuration files:
 
-- `$XDG_DATA_HOME` (assumed to be `~/.local/share` if not set): used
+- `$XDG_STATE_HOME` (assumed to be `~/.local/share` if not set): used
   for storing state, such as the current user environment and
   channels, repl history, and allowed flake settings.
 - `$XDG_CACHE_HOME` (assumed to be `~/.cache` if not set): used for

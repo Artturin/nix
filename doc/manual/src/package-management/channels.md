@@ -21,7 +21,7 @@ $ nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 
 subscribes you to a channel that always contains that latest version
 of the Nix Packages collection. (Subscribing really just means that
-the URL is added to the file `$XDG_DATA_HOME/nix/channels` (unless
+the URL is added to the file `$XDG_STATE_HOME/nix/channels` (unless
 legacy `~/.nix-channels` exists, in which case it is used), where it
 is read by subsequent calls to `nix-channel --update`.) You can
 “unsubscribe” using `nix-channel --remove`:
@@ -39,7 +39,7 @@ $ nix-channel --update
 This downloads and unpacks the Nix expressions in every channel
 (downloaded from `url/nixexprs.tar.bz2`). It also makes the union of
 each channel’s Nix expressions available by default to `nix-env`
-operations (via the symlink `$XDG_DATA_HOME/nix/channels` or legacy
+operations (via the symlink `$XDG_STATE_HOME/nix/channels` or legacy
 `~/.nix-defexpr/channels`). Consequently, you can then say
 
 ```console
