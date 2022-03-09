@@ -35,9 +35,6 @@ grep -q 'item.*attrPath="foo".*name="dependencies-top"' $TEST_ROOT/meta.xml
 nix-env -i dependencies-top
 [ -e $TEST_HOME/.local/state/nix/profile/foobar ]
 
-clearProfiles
-rm -rf $TEST_HOME/.local/state/nix
-
 # Test updating from a tarball
 nix-channel --add file://$TEST_ROOT/foo/nixexprs.tar.bz2 bar
 nix-channel --update
