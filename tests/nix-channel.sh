@@ -2,15 +2,15 @@ source common.sh
 
 clearProfiles
 
-rm -rf $TEST_HOME/.local/state/nix
+rm -rf $TEST_HOME_STATE_NIX
 
 # Test add/list/remove.
 nix-channel --add http://foo/bar xyzzy
 nix-channel --list | grep -q http://foo/bar
 nix-channel --remove xyzzy
 
-[ -e $TEST_HOME/.local/state/nix/channels ]
-[ "$(cat $TEST_HOME/.local/state/nix/channels)" = '' ]
+[ -e $TEST_HOME_STATE_NIX/channels ]
+[ "$(cat $TEST_HOME_STATE_NIX/channels)" = '' ]
 
 # Create a channel.
 rm -rf $TEST_ROOT/foo
@@ -33,7 +33,7 @@ grep -q 'item.*attrPath="foo".*name="dependencies-top"' $TEST_ROOT/meta.xml
 
 # Do an install.
 nix-env -i dependencies-top
-[ -e $TEST_HOME/.local/state/nix/profile/foobar ]
+[ -e $TEST_HOME_STATE_NIX/profile/foobar ]
 
 # Test updating from a tarball
 nix-channel --add file://$TEST_ROOT/foo/nixexprs.tar.bz2 bar
@@ -47,18 +47,18 @@ grep -q 'item.*attrPath="foo".*name="dependencies-top"' $TEST_ROOT/meta.xml
 
 # Do an install.
 nix-env -i dependencies-top
-[ -e $TEST_HOME/.local/state/nix/profile/foobar ]
+[ -e $TEST_HOME_STATE_NIX/profile/foobar ]
 
 # Check that the old links are used if they exist
 
-ln -s $(readlink $TEST_HOME/.local/state/nix/profile) $TEST_HOME/.nix-profile
-cp -r $TEST_HOME/.local/state/nix/defexpr $TEST_HOME/.nix-defexpr
-cp -r $TEST_HOME/.local/state/nix/channels $TEST_HOME/.nix-channels
-rm -rf $TEST_HOME/.local/state/nix
+ln -s $(readlink $TEST_HOME_STATE_NIX/profile) $TEST_HOME/.nix-profile
+cp -r $TEST_HOME_STATE_NIX/defexpr $TEST_HOME/.nix-defexpr
+cp -r $TEST_HOME_STATE_NIX/channels $TEST_HOME/.nix-channels
+rm -rf $TEST_HOME_STATE_NIX
 
 nix-channel --add file://$TEST_ROOT/foo/nixexprs.tar.bz2 foo
 nix-channel --update
 # Do an install.
 nix-env -i dependencies-top
 [ -e $TEST_HOME/.nix-profile/foobar ]
-! [ -e $TEST_HOME/.local/state/nix ]
+! [ -e $TEST_HOME_STATE_NIX ]

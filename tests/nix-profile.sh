@@ -45,7 +45,7 @@ cp ./config.nix $flake1Dir/
 nix-env -f ./user-envs.nix -i foo-1.0
 nix profile list | grep '0 - - .*-foo-1.0'
 nix profile install $flake1Dir -L
-[[ $($TEST_HOME/.local/state/nix/profile/bin/hello) = "Hello World" ]]
+[[ $($TEST_HOME_STATE_NIX/profile/bin/hello) = "Hello World" ]]
 nix profile history
 nix profile history | grep "packages.$system.default: ∅ -> 1.0"
 nix profile diff-closures | grep 'env-manifest.nix: ε → ∅'
@@ -54,7 +54,7 @@ nix profile diff-closures | grep 'env-manifest.nix: ε → ∅'
 printf NixOS > $flake1Dir/who
 printf 2.0 > $flake1Dir/version
 nix profile upgrade 1
-[[ $($TEST_HOME/.local/state/nix/profile/bin/hello) = "Hello NixOS" ]]
+[[ $($TEST_HOME_STATE_NIX/profile/bin/hello) = "Hello NixOS" ]]
 nix profile history | grep "packages.$system.default: 1.0 -> 2.0"
 
 # Test 'history', 'diff-closures'.
@@ -62,21 +62,21 @@ nix profile diff-closures
 
 # Test rollback.
 nix profile rollback
-[[ $($TEST_HOME/.local/state/nix/profile/bin/hello) = "Hello World" ]]
+[[ $($TEST_HOME_STATE_NIX/profile/bin/hello) = "Hello World" ]]
 
 # Test uninstall.
-[ -e $TEST_HOME/.local/state/nix/profile/bin/foo ]
+[ -e $TEST_HOME_STATE_NIX/profile/bin/foo ]
 nix profile remove 0
-(! [ -e $TEST_HOME/.local/state/nix/profile/bin/foo ])
+(! [ -e $TEST_HOME_STATE_NIX/profile/bin/foo ])
 nix profile history | grep 'foo: 1.0 -> ∅'
 nix profile diff-closures | grep 'Version 3 -> 4'
 
 # Test installing a non-flake package.
 nix profile install --file ./simple.nix ''
-[[ $(cat $TEST_HOME/.local/state/nix/profile/hello) = "Hello World!" ]]
+[[ $(cat $TEST_HOME_STATE_NIX/profile/hello) = "Hello World!" ]]
 nix profile remove 1
 nix profile install $(nix-build --no-out-link ./simple.nix)
-[[ $(cat $TEST_HOME/.local/state/nix/profile/hello) = "Hello World!" ]]
+[[ $(cat $TEST_HOME_STATE_NIX/profile/hello) = "Hello World!" ]]
 
 # Test wipe-history.
 nix profile wipe-history
@@ -93,5 +93,5 @@ nix profile remove 0
 printf 4.0 > $flake1Dir/version
 printf Utrecht > $flake1Dir/who
 nix profile install $flake1Dir
-[[ $($TEST_HOME/.local/state/nix/profile/bin/hello) = "Hello Utrecht" ]]
-[[ $(nix path-info --json $(realpath $TEST_HOME/.local/state/nix/profile/bin/hello) | jq -r .[].ca) =~ fixed:r:sha256: ]]
+[[ $($TEST_HOME_STATE_NIX/profile/bin/hello) = "Hello Utrecht" ]]
+[[ $(nix path-info --json $(realpath $TEST_HOME_STATE_NIX/profile/bin/hello) | jq -r .[].ca) =~ fixed:r:sha256: ]]

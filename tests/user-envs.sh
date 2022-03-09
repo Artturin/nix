@@ -10,7 +10,7 @@ clearProfiles
 test "$(nix-env -p $profiles/test -q '*' | wc -l)" -eq 0
 
 nix-env --switch-profile $profiles/test
-stat $HOME/.local/state/nix/profile
+stat $TEST_HOME_STATE_NIX/profile
 
 # Query available: should contain several.
 test "$(nix-env -f ./user-envs.nix -qa '*' | wc -l)" -eq 6
@@ -20,9 +20,9 @@ drvPath10=$(nix-env -f ./user-envs.nix -qa --drv-path --no-name '*' | grep foo-1
 
 # Query descriptions.
 nix-env -f ./user-envs.nix -qa '*' --description | grep -q silly
-rm -rf $HOME/.local/state/nix/defexpr
-mkdir -p $HOME/.local/state/nix
-ln -s $(pwd)/user-envs.nix $HOME/.local/state/nix/defexpr
+rm -rf $TEST_HOME_STATE_NIX/defexpr
+mkdir -p $TEST_HOME_STATE_NIX/nix
+ln -s $(pwd)/user-envs.nix $TEST_HOME_STATE_NIX/defexpr
 nix-env -qa '*' --description | grep -q silly
 
 # Query the system.
