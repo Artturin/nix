@@ -1369,10 +1369,12 @@ static int main_nix_env(int argc, char * * argv)
         Globals globals;
 
         globals.instSource.type = srcUnknown;
-        Path nixExprPath = getHome() + "/.nix-defexpr";
-        if (!pathExists(nixExprPath)) nixExprPath = getStateDir() + "/nix/defexpr";
-        globals.instSource.nixExprPath = nixExprPath;
-        globals.instSource.systemFilter = "*";
+        {
+            Path nixExprPath = getHome() + "/.nix-defexpr";
+            if (!pathExists(nixExprPath)) nixExprPath = getStateDir() + "/nix/defexpr";
+            globals.instSource.nixExprPath = nixExprPath;
+        }
+            globals.instSource.systemFilter = "*";
 
         if (!pathExists(globals.instSource.nixExprPath)) {
             try {
