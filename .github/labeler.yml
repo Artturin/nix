@@ -1,0 +1,12 @@
+# if a label exists in nixpkgs then use that instead of making a new one
+
+"8.has: changelog":
+  - /doc/manual/src/release-notes/*
+
+"8.has: documentation":
+  - doc/manual/*
+  - src/nix/**/*.md
+
+# does not exist in nixpkgs
+"8.has: test":
+  - tests/**/*
